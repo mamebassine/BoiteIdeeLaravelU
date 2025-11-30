@@ -1,0 +1,131 @@
+/* ---- NAVBAR ---- */
+
+
+/* Conteneur de la marque */
+.nav-brand {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    height: 75px;      /* AUGMENTE ici pour que le logo soit plus grand */
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.login-btn {
+    color: rgb(233, 117, 117) !important;
+    font-weight: 600;
+}
+
+
+.logout-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+
+.navbar {
+    width: 100%;
+    background-color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.nav-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Marque */
+.nav-brand {
+    color: #009975;              /* Couleur marque : Vert foncé */
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ---- MENU ---- */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-menu li a {
+    color: #00B894;             /* Liens : Vert clair */
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-menu li a:hover {
+    color: #FF6B6B;             /* Hover : Vert foncé */
+}
+
+/* ---- BURGER BUTTON ---- */
+.nav-toggle {
+    display: none;
+    background: none;
+    color: #009975;             /* Icône burger */
+    font-size: 28px;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background-color: #fff;
+        width: 220px;
+        flex-direction: column;
+        padding: 20px 0;
+        display: none;
+        box-shadow: -2px 2px 8px rgba(0,0,0,0.15);
+        border-left: 3px solid #009975;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-menu li {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .nav-menu li a {
+        font-size: 18px;
+        color: #00B894;      /* Toujours vert clair en mobile */
+    }
+
+    .nav-menu li a:hover {
+        color: #009975;      /* Hover uniquement vert foncé */
+    }
+}
