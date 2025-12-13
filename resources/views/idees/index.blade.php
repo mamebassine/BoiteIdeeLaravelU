@@ -7,18 +7,14 @@
         --text: #000;
         --muted: #6F6F6F;
         --accent: #FF6B6B;
-        --text: #000;
-  --primary: #00B894;        
-  --primary-dark: #009975;   
-   
+        --primary: #00B894;
+        --primary-dark: #009975;
     }
 
-    /* Conteneur */
     .container {
         margin-top: 40px;
     }
 
-    /* Titre */
     h1 {
         text-align: center;
         font-weight: bold;
@@ -26,7 +22,6 @@
         margin-bottom: 25px;
     }
 
-    /* Bouton nouvelle idée */
     .btn-success {
         background-color: var(--accent) !important;
         border: none !important;
@@ -39,7 +34,6 @@
         background-color: #009975 !important;
     }
 
-    /* Tableau simple et neutre */
     table {
         width: 100%;
         border-collapse: collapse;
@@ -58,50 +52,38 @@
         border: 1px solid #ddd;
         font-size: 14px;
         color: var(--text);
+        vertical-align: top;
     }
 
     tbody tr:hover {
         background-color: #f1f1f1;
     }
 
-    /* Boutons actions — couleurs sobres */
-    .btn-info {
-        background: #6F6F6F !important;
-        border: none !important;
-        margin-right: 5px !important;
-    }
-    .btn-info:hover {
-        background: #e4cdcdff !important;
+    .badge {
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #fff;
     }
 
-    .btn-warning {
-        background: var(--accent) !important;
-        border: none !important;
-        margin-right: 5px !important;
-    }
-    .btn-warning:hover {
-        background: #e05555 !important;
-    }
+    .bg-wait { background-color: #6c757d; }
+    .bg-yes { background-color: #28a745; }
+    .bg-no { background-color: #dc3545; }
 
-    .btn-danger {
-        background: #d63031 !important;
-        border: none !important;
-        margin-top: 5px;
-    }
-    .btn-danger:hover {
-        opacity: 0.85;
-    }
-
-    /* Espace entre les boutons */
-    td .btn {
-        margin-bottom: 5px !important;
+    .toggle-btn {
+        color: var(--accent);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
         display: inline-block;
+        margin-top: 5px;
     }
 </style>
 
 
 <div class="container">
-    <h1>Liste des idées</h1>
+    <h1>Liste des idées site</h1>
 
     <a href="{{ route('idees.create') }}" class="btn btn-success mb-3">Nouvelle idée</a>
 
@@ -114,27 +96,47 @@
             <tr>
                 <th>Libellé</th>
                 <th>Auteur</th>
+                <th>Email</th>
+                <th>Description</th>
                 <th>Catégorie</th>
-                <!-- <th>Actions</th> -->
+                <th>Statut</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach($idees as $idee)
             <tr>
                 <td>{{ $idee->libelle }}</td>
                 <td>{{ $idee->auteur_nom_complet }}</td>
-                <td>{{ $idee->categorie->libelle }}</td>
-                <!-- <td> -->
-                    <!-- <a href="{{ route('idees.show', $idee) }}" class="btn btn-info btn-sm">Voir</a>
-                    <a href="{{ route('idees.edit', $idee) }}" class="btn btn-warning btn-sm">Modifier</a>
 
-                    <form action="{{ route('idees.destroy', $idee) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cette idée ?')">
-                            Supprimer
-                        </button> -->
-                    </form>
+                <!-- Email -->
+                <td>{{ $idee->auteur_email }}</td>
+
+                <!-- Description avec Voir plus / Voir moins -->
+                <td>
+                    <span class="desc-short">{{ Str::limit($idee->description, 50) }}</span>
+
+                    <span class="desc-full" style="display:none;">
+                        {{ $idee->description }}
+                    </span>
+
+                    <span class="toggle-btn" onclick="toggleDescription(this)">
+                        Voir plus
+                    </span>
+                </td>
+
+                <!-- Catégorie -->
+                <td>{{ $idee->categorie->libelle }}</td>
+
+                <!-- Statut -->
+                <td>
+                    @if($idee->statut == 'en_attente')
+                        <span class="badge bg-wait">En attente</span>
+                    @elseif($idee->statut == 'approuvée')
+                        <span class="badge bg-yes">Approuvée</span>
+                    @elseif($idee->statut == 'refusée')
+                        <span class="badge bg-no">Refusée</span>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -143,5 +145,24 @@
 
     {{ $idees->links() }}
 </div>
+
+
+<!-- Script Voir plus / Voir moins -->
+<script>
+function toggleDescription(btn) {
+    let shortText = btn.parentElement.querySelector('.desc-short');
+    let fullText = btn.parentElement.querySelector('.desc-full');
+
+    if (fullText.style.display === "none") {
+        fullText.style.display = "inline";
+        shortText.style.display = "none";
+        btn.textContent = "Voir moins";
+    } else {
+        fullText.style.display = "none";
+        shortText.style.display = "inline";
+        btn.textContent = "Voir plus";
+    }
+}
+</script>
 
 @endsection

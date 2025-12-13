@@ -3,13 +3,15 @@
 @section('content')
 
 <style>
-:root {
-    --text: #000;
-    --muted: #6F6F6F;
-    --accent: #FF6B6B;
-    --primary: #00B894;
-    --primary-dark: #009975;
-}
+
+
+        :root {
+            --text: #000;
+            --muted: #6F6F6F;
+            --accent: #FF6B6B;
+            --primary: #00B894;
+            --primary-dark: #009975;
+        }
 
 /* Conteneur principal */
 .form-container {

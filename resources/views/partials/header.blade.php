@@ -16,14 +16,14 @@
         <ul class="nav-menu" id="navMenu">
             <li><a href="{{ route('accueil') }}">Accueil</a></li>
             <li><a href="{{ route('idees.index') }}">Idées</a></li>
-            <li><a href="{{ route('categories.index') }}">Catégories</a></li>
+            <!-- <li><a href="{{ route('categories.index') }}">Catégories</a></li> -->
             <li><a href="{{ url('/contact') }}">Contact</a></li>
 
             {{-- Auth --}}
             @guest
                 <li><a href="{{ route('login') }}" class="login-btn">Se connecter</a></li>
             @else
-                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <!-- <li><a href="{{ route('dashboard') }}">Dashboard</a></li> -->
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf

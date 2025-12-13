@@ -15,7 +15,16 @@ class IdeeController extends Controller
         return view('idees.index', compact('idees'));
     }
 
-    // Formulaire pour créer une nouvelle idée
+
+// afficheAdmin.php  afficheAdmin.php  afficheAdmin.php
+
+    public function afficheAdmin()
+    {
+        $idees = Idee::with('categorie')->paginate(10);
+        return view('idees.afficheAdmin', compact('idees'));
+    }
+
+// Formulaire pour créer une nouvelle idée
     public function create()
     {
         $categories = Categorie::all();
@@ -52,7 +61,7 @@ class IdeeController extends Controller
 }
 
 
-    // Formulaire pour éditer une idée
+// Formulaire pour éditer une idée
     public function edit(Idee $idee)
     {
         $categories = Categorie::all();
@@ -60,22 +69,44 @@ class IdeeController extends Controller
     }
 
     // Mettre à jour une idée
-    public function update(Request $request, Idee $idee)
-    {
-        $request->validate([
-            'libelle' => 'required|string|max:255',
-            'description' => 'required|string',
-            'auteur_nom_complet' => 'required|string|max:255',
-            'auteur_email' => 'required|email',
-            'categorie_id' => 'required|exists:categories,id',
-        ]);
+   public function update(Request $request, Idee $idee)
+{
+    $request->validate([
+        'libelle' => 'required|string|max:255',
+        'description' => 'required|string',
+        'auteur_nom_complet' => 'required|string|max:255',
+        'auteur_email' => 'required|email',
+        'categorie_id' => 'required|exists:categories,id',
+    ]);
 
-        $idee->update($request->all());
+    $idee->update($request->all());
 
-        return redirect()->route('idees.index')->with('success', 'Idée mise à jour avec succès !');
-    }
+    return redirect()->route('idees.index')
+                     ->with('success', 'Idée mise à jour avec succès !');
+}
+ 
+// Moodifier uniquement le statut
+public function updateStatut(Request $request, $id)
+{
+    $idee = Idee::findOrFail($id);
 
-    // Supprimer une idée
+    $idee->statut = $request->statut;
+    $idee->save();
+
+    return redirect()->route('idees.afficheAdmin')
+                     ->with('success', 'Statut mis à jour avec succès.');
+}
+
+
+public function modifierAdmin($id)
+{
+    $idee = Idee::with('categorie')->findOrFail($id);
+
+    return view('idees.modifierAdmin', compact('idee'));
+}
+
+
+// Supprimer une idée
     public function destroy(Idee $idee)
     {
         $idee->delete();

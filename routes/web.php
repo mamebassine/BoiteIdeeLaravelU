@@ -27,7 +27,24 @@ Route::get('/admin/dashboard', [AdminController::class, 'index'])
 // CATEGORIES
 Route::resource('categories', CategorieController::class);
 
-// IDEES
+// IDEES general
+
+// idee admi
+Route::get('/ideesafficheAdmin', [IdeeController::class, 'afficheAdmin'])
+    ->name('idees.afficheAdmin');
+
+// Page pour modifier le statut d'une idée (admin)
+Route::get('idees/{id}/modifier-admin', [IdeeController::class, 'modifierAdmin'])->name('idees.modifierAdmin');
+
+// Mise à jour du statut
+Route::put('/idees/{id}/statut', [IdeeController::class, 'updateStatut'])
+    ->name('idees.updateStatut');
+
+
+
+
+
+    
 Route::get('/idees', [IdeeController::class, 'index'])->name('idees.index');
 Route::get('/idees/creer', [IdeeController::class, 'create'])->name('idees.create');
 Route::post('/idees', [IdeeController::class, 'store'])->name('idees.store');

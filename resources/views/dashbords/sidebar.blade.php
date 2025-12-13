@@ -4,7 +4,7 @@
 
         <ul>
             <li><a href="{{ route('accueil') }}">🏠 Accueil</a></li>
-            <li><a href="{{ route('idees.index') }}">💡 Idées</a></li>
+            <li><a href="{{ route('idees.afficheAdmin') }}">💡 Idées</a></li>
             <li><a href="{{ route('categories.index') }}">📂 Catégories</a></li>
             <li><a href="{{ route('commentaires.index') }}">💬 Commentaires</a></li>
         </ul>

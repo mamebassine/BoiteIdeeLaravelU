@@ -199,6 +199,15 @@
             </span>
         </p>
 
+
+<p><strong>Statut :</strong>
+    <span class="badge" style="background-color: var(--accent);">
+        {{ $idee->statut }}
+    </span>
+</p>
+
+
+
         <!-- Boutons -->
         <div style="margin-top:20px;">
             <a href="{{ route('idees.edit', $idee) }}" class="btn btn-modifier">Modifier</a>
