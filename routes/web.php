@@ -6,6 +6,7 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\IdeeController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
 
 // Page d'accueil
 Route::get('/', [AccueilController::class, 'index'])->name('accueil');
